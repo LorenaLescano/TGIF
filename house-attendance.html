@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "utf-8"> 
+        <title> House data </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">  
+    </head>
+    
+    <body>
+        <div class = "container h-100" id="app">
+            
+       <header>
+        <div class="row">
+            <div class="col-sm-4">
+               <img src="./images/logoTGIF.jpg" class="img-rounded" alt="Cinque Terre" width="350" height="170">
+            </div>
+            <div class="col-sm-8 text-right" glyphicon glyphicon-envelope> <a href="mailto:info@tgif.net">info@tgif.net</a>
+            </div>
+            </div>
+        </header>
+            
+            <!--Navigation bar with dropdown menu-->
+            <nav class="row navbar navbar-inverse">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">TGIF</a>
+                </div>
+          
+                <ul class="nav navbar-nav">          
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Congress 113<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-data.html">Senate</a></li>
+                            <li><a href="house-data.html">House</a></li>
+                        </ul>
+                    </li>
+                    
+                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Attendance<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-attendance.html">Senate</a></li>
+                            <li class="active"><a href="house-attendance.html">House</a></li>
+                        </ul>
+                    </li>
+                    
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Party Loyalty<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-party-loyalty.html">Senate</a></li>
+                            <li><a href="house-party-loyalty.html">House</a></li>
+                        </ul>
+                    </li>             
+                </ul>   
+        </nav>
+            
+    
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Attendance</h2>
+                    <p class="text-justify">The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+                    
+                    <p class="text-justify">The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+                    </div>
+                
+               <!-- Tables -->
+                <div class="col-sm-6">
+                    <h3 class="heading_nudge">House at a glance</h3>
+                    <table id= "house" class="table">
+                        <thead>
+                            <tr>
+                                <th>Party</th>
+                                <th>Number of Reps</th>
+                                <th>% Voted with Party</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td>Democrat</td>
+                                <td id="num_D">{{ stats.num_D }}</td>
+                                <td id="average_vots_with_party_D">{{ stats.average_vots_with_party_D.toFixed(2) + " %"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Republican</td>
+                                <td id="num_R">{{ stats.num_R }}</td>
+                                <td id="average_vots_with_party_R">{{ stats.average_vots_with_party_R.toFixed(2) + " %"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Independent</td>
+                                <td id="num_I">{{ stats.num_I }}</td>
+                                <td id="average_vots_with_party_I">{{ stats.average_vots_with_party_I.toFixed(2) + " %"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{ stats.total_reps }}</td>
+                                <td>{{ stats.total_voted_with_party.toFixed(2) + " %" }}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>          
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3>Least Engaged (Bottom 10% Attendance)</h3>
+                    <table id="jsonData" class="table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Missed Votes</th>
+                                <th>% Missed</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr v-for="candidate in stats.least_engaged">
+                                <td class="link"><a v-bind:href="candidate.url" target="_blank">{{candidate.first_name}} {{candidate.middle_name}} {{candidate.last_name}}</a></td>
+                                <td>{{candidate.missed_votes}}</td>
+                                <td>{{candidate.missed_votes_pct + " %"}}</td>
+                            </tr>
+                        </tbody>      
+                    </table>  
+                </div>
+                
+                <div class="col-sm-6">
+                    <h3>Most Engaged (Top 10% Attendance)</h3>
+                    <table id="jsonData" class="table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Missed Votes</th>
+                                <th>% Missed</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr v-for="candidate in stats.most_engaged">
+                                <td class="link"><a v-bind:href="candidate.url" target="_blank">{{candidate.first_name}} {{candidate.middle_name}} {{candidate.last_name}}</a></td>
+                                <td>{{candidate.missed_votes}}</td>
+                                <td>{{candidate.missed_votes_pct + " %"}}</td>
+                            </tr>
+                        </tbody>  
+                    </table> 
+                </div>
+            </div>
+
+                         
+        <!-- Footer -->   
+        <div class="row">
+        <footer class="alert-success page-footer font-small blue">    
+            <div class="footer-copyright text-center py-3">©2016 TGIF | All the rights reserved </div>
+        </footer>
+       </div>
+      </div>   
+        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- <script src="./scripts/house.js"></script> -->
+        <script src="./scripts/statistics.js"></script>
+</body>
+</html>

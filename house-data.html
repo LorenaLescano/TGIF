@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "utf-8"> 
+        <title> House data </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    </head>
+    
+    <body>
+        <div class = "container h-100" id="app">
+            
+         <header>
+        <div class="row">
+            <div class="col-sm-4">
+               <img src="./images/logoTGIF.jpg" class="img-rounded" alt="Cinque Terre" width="350" height="170">
+            </div>
+            <div class="col-sm-8 text-right" glyphicon glyphicon-envelope> <a href="mailto:info@tgif.net">info@tgif.net</a>
+            </div>
+            </div>
+        </header>
+        
+        <!--Navigation bar with dropdown menu-->
+     <nav class="row navbar navbar-inverse">
+<div class="navbar-header">
+                    <a class="navbar-brand" href="#">TGIF</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Congress 113<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-data.html">Senate</a></li>
+                            <li class="active"><a href="house-data.html">House</a></li>
+                        </ul>
+                    </li>
+                    
+                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Attendance<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-attendance.html">Senate</a></li>
+                            <li><a href="house-attendance.html">House</a></li>
+                        </ul>
+                    </li>
+                    
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Party Loyalty<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="senate-party-loyalty.html">Senate</a></li>
+                            <li><a href="house-party-loyalty.html">House</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>   
+        </nav>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>Congressmen</h1>
+                    <p class="text-justify">The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p><p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative.</p>
+                </div>
+            </div>
+        
+                <!--Filters -->
+            <div class="row">
+                 <div class="col-sm-6">
+                     <p>Filter by Party:</p>
+                     <input type="checkbox" id="R" value="R" v-model="checkedParty" name="mycheckboxes" checked> <label> Republican </label>
+                     <input type="checkbox" id="D" value="D" v-model="checkedParty" name="mycheckboxes" checked> <label> Democrat </label>
+                     <input type="checkbox" id="I" value="I" v-model="checkedParty" name="mycheckboxes" checked> <label> Independent </label>
+                </div>
+                
+                <div class="col-sm-6">
+                    <form>
+                        <p>Filter by State</p>
+                    <select  v-model="checkedStates" class="filter">
+                        <option value="All">All States</option>
+                        <option v-for="state in states" :value = "state">{{state}}</option>
+                    </select> 
+                </form>
+                </div>
+            </div>
+            
+        <!--Table -->
+                <div class="row">
+                 <div class="col-sm-10">
+                     <table id= "house" class="table">
+                         <thead>
+                             <tr>
+                                 <th>Full Name</th>
+                                 <th>Party</th>
+                                 <th>State</th>
+                                 <th>Years in Office</th>
+                                 <th>Percentage</th>
+                             </tr>
+                        </thead>
+                         
+                         <tbody>
+                             <tr v-for="candidate in filterData()">
+                                 <td><a v-bind:href="candidate.url">{{candidate.first_name}} {{candidate.middle_name}} {{candidate.last_name}}</a></td>
+                                 <td>{{candidate.party}}</td>
+                                 <td>{{candidate.state}}</td>
+                                 <td>{{candidate.seniority}}</td>
+                                 <td>{{candidate.votes_with_party_pct + " %"}}</td>
+                            </tr>
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+                     
+        <!-- Footer -->
+            <footer class="alert-success page-footer font-small blue">
+                <div class="footer-copyright text-center py-3">©2016 TGIF | All the rights reserved </div>
+            </footer>
+        
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- <script src="./scripts/house.js"></script> -->
+        <script src="./scripts/main.js"></script>
+        
+    </body>
+</html>
